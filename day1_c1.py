@@ -1,7 +1,7 @@
 import string
 
 
-with open("day1_c1.txt", "r") as f:
+with open("day1.txt", "r") as f:
     inp = f.readlines()
 
 for i, o in enumerate(inp):
@@ -10,6 +10,8 @@ for i, o in enumerate(inp):
         if l in string.digits:
             num += l
             break
+        
+    # Backwards search
     for l in reversed(o):
         if l in string.digits:
             num += l
