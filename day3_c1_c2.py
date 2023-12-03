@@ -28,19 +28,19 @@ class Number:
         for i in self.ind:
             n += self.inp[i[0]][i[1]]
         return int(n)
-    
+
     def get_sur(self) -> list[(int, int)]:
         _temp = []
         for i in self.ind:
             var = [-1, 1]
             for v in var:
-                _temp.append((i[0]+v, i[1]))
-                _temp.append((i[0]+v, i[1]+v))
-                _temp.append((i[0]+v, i[1]-v))
-                _temp.append((i[0], i[1]+v))
+                _temp.append((i[0] + v, i[1]))
+                _temp.append((i[0] + v, i[1] + v))
+                _temp.append((i[0] + v, i[1] - v))
+                _temp.append((i[0], i[1] + v))
         return _temp
 
-    
+
 nstr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 ponctuation = [
     "!",
@@ -75,38 +75,48 @@ ponctuation = [
     "}",
     "~",
 ]
-ilst = []
-nlst = []
-for i, line in enumerate(inp):
-    for j, char in enumerate(line):
-        if char in nstr:
-            ilst.append((i, j))
-            if j == len(line) - 1:
+
+
+def main():
+    ilst = []
+    nlst = []
+    for i, line in enumerate(inp):
+        for j, char in enumerate(line):
+            if char in nstr:
+                ilst.append((i, j))
+                if j == len(line) - 1:
+                    nlst.append(Number(ilst, inp))
+                    ilst = []
+                continue
+            if ilst != []:
                 nlst.append(Number(ilst, inp))
                 ilst = []
-            continue
-        if ilst != []:
-            nlst.append(Number(ilst, inp))
-            ilst = []
 
-for n in nlst:
-    for i in n.sur:
-        try:
-            if inp[i[0]][i[1]] in ponctuation:
-                n.eng = True
-        except IndexError:
-            pass
+    for n in nlst:
+        for i in n.sur:
+            try:
+                if inp[i[0]][i[1]] in ponctuation:
+                    n.eng = True
+            except IndexError:
+                pass
 
-gear = []
-for i, line in enumerate(inp):
-    for j, char in enumerate(line):
-        if char == "*":
-            count = []
-            for n in nlst:
-                if (i, j) in n.sur:
-                    count.append(n)
-            if len(count) != 2:
-                continue
-            gear.append(count)
+    gear = []
+    for i, line in enumerate(inp):
+        for j, char in enumerate(line):
+            if char == "*":
+                count = []
+                for n in nlst:
+                    if (i, j) in n.sur:
+                        count.append(n)
+                if len(count) != 2:
+                    continue
+                gear.append(count)
 
-print(sum([n.value for n in nlst if n.eng]), sum([i[0].value*i[1].value for i in gear]))
+    print(
+        sum([n.value for n in nlst if n.eng]),
+        sum([i[0].value * i[1].value for i in gear]),
+    )
+
+
+if __name__ == "__main__":
+    main()
