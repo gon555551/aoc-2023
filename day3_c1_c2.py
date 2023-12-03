@@ -10,6 +10,7 @@ for i, line in enumerate(inp):
     inp[i] = mat
 
 
+# Number class which handles the position and value of every number
 class Number:
     ind: list[(int, int)]
     inp: list[list]
@@ -29,6 +30,7 @@ class Number:
             n += self.inp[i[0]][i[1]]
         return int(n)
 
+    # A bit redundant as it returns more than the surrounding indeces. It's fine though.
     def get_sur(self) -> list[(int, int)]:
         _temp = []
         for i in self.ind:
@@ -80,6 +82,8 @@ ponctuation = [
 def main():
     ilst = []
     nlst = []
+    
+    # Gets all numbers into nlst
     for i, line in enumerate(inp):
         for j, char in enumerate(line):
             if char in nstr:
@@ -92,6 +96,7 @@ def main():
                 nlst.append(Number(ilst, inp))
                 ilst = []
 
+    # Checks if the number touches a symbol (c1)
     for n in nlst:
         for i in n.sur:
             try:
@@ -100,6 +105,7 @@ def main():
             except IndexError:
                 pass
 
+    # Gets the gear ratio number pairs (c2)
     gear = []
     for i, line in enumerate(inp):
         for j, char in enumerate(line):
