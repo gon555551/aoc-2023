@@ -1,0 +1,1 @@
+print(sum(2**(len(game)-1) for game in [[match in got for match in win if match in got] for win, got in [card for card in [pair for pair in [[list(filter(lambda x: x != "", win.strip().split(" "))), list(filter(lambda x: x != "", got.strip().split(" ")))] for win, got in (line.split(":")[1].strip().split("|") for line in open("day4.txt", "r").readlines())]]]] if len(game) > 0))
